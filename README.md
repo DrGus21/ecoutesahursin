@@ -52,40 +52,60 @@ Please ensure that you run these commands in a PowerShell window with administra
 
 3. Install the required packages:
 
-   ```
+   It is highly recommended to use a virtual environment:
+   ```powershell
+   # 1. Create a virtual environment
+   python -m venv venv
+
+   # 2. Activate the virtual environment
+   # On Windows (PowerShell):
+   .\venv\Scripts\Activate.ps1
+   # On macOS/Linux:
+   source venv/bin/activate
+
+   # 3. Install packages
    pip install -r requirements.txt
    ```
+
+   *If you get a launcher path error (like `Fatal error in launcher`), bypass it by running pip directly through the python executable:*
+   ```powershell
+   .\venv\Scripts\python.exe -m pip install -r requirements.txt
+   ```
    
-4. (Optional) Create a `keys.py` file in the ecoute directory and add your OpenAI API key:
+4. (Optional) Create a `keys.py` file in the `ecoute` directory and add your API keys:
 
-   - Option 1: You can utilize a command on your command prompt. Run the following command, ensuring to replace "API KEY" with your actual OpenAI API key:
-
-      ```
-      python -c "with open('keys.py', 'w', encoding='utf-8') as f: f.write('OPENAI_API_KEY=\"API KEY\"')"
-      ```
-
-   - Option 2: You can create the keys.py file manually. Open up your text editor of choice and enter the following content:
+   Create the `keys.py` file manually in the root folder and enter the following:
    
-      ```
-      OPENAI_API_KEY="API KEY"
-      ```
-      Replace "API KEY" with your actual OpenAI API key. Save this file as keys.py within the ecoute directory.
+   ```python
+   OPENAI_API_KEY="YOUR_OPENAI_API_KEY"
+   GEMINI_API_KEY="YOUR_GEMINI_API_KEY"
+   ```
+   *(This file is configured in `.gitignore` so your API keys will stay safe and local on your machine).*
 
 ### 🎬 Running Ecoute
 
-Run the main script:
+To run the main script, make sure your virtual environment is active and run:
 
-```
+```powershell
 python main.py
 ```
 
-For a more better and faster version that also works with most languages, use:
+**Troubleshooting / Direct Run:**
+If your global Python environment is broken or you don't want to activate the virtual environment, you can run the app directly using the `venv` path:
 
+```powershell
+.\venv\Scripts\python.exe main.py
 ```
+
+For a better and faster version that also works with most languages, use:
+
+```powershell
 python main.py --api
 ```
 
-Upon initiation, Ecoute will begin transcribing your microphone input and speaker output in real-time. Please note that it might take a few seconds for the system to warm up before the transcription becomes real-time.
+*(Or direct run: `.\venv\Scripts\python.exe main.py --api`)*
+
+Upon initiation, Ecoute will begin transcribing your microphone input and speaker output in real-time. Please note that it might take a few seconds for the system to warm up (or to download the Faster-Whisper model on the first run) before the transcription becomes real-time.
 
 The --api flag will use the whisper api for transcriptions. This significantly enhances transcription speed and accuracy, and it works in most languages (rather than just English without the flag). It's expected to become the default option in future releases. However, keep in mind that using the Whisper API will consume more OpenAI credits than using the local model. This increased cost is attributed to the advanced features and capabilities that the Whisper API provides. Despite the additional expense, the substantial improvements in speed and transcription accuracy may make it a worthwhile investment for your use case.
 
