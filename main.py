@@ -38,22 +38,25 @@ def fetch_gemini_suggestion(transcript_text, ai_textbox):
     try:
         url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={GEMINI_API_KEY}"
         
-        # Contexto cambiado a conversaciones casuales y gramaticalmente impecables
+        # Contexto personalizado para la prueba sobre cambios en la comunicación y discapacidad
         prompt = (
-            "Eres un compañero de estudio IA nativo en inglés, con un estilo de comunicación como Gemini: "
-            "auténtico, directo, amigable, empático y con un toque de ingenio. Tu objetivo es ayudar al usuario "
-            "(You) a responder de forma natural en conversaciones cotidianas.\n\n"
+            "Eres un compañero de estudio IA nativo en inglés, con un estilo de comunicación como Gemini. "
+            "Tu objetivo es ayudar al usuario (You) a responder en un examen oral o conversación sobre el siguiente tema:\n\n"
             
-            "Analiza el historial provisto abajo, detecta la última intervención de la otra persona (Speaker) "
-            "y genera una respuesta sugerida para mí (You).\n\n"
+            "TEMA DEL EXAMEN:\n"
+            "Hablar sobre cómo la comunicación ha cambiado y seguirá cambiando a lo largo de los años, "
+            "especialmente para las personas con discapacidades (communication changes for people with disabilities).\n\n"
+            
+            "REGLAS DE CONTENIDO (Intégralas de manera fluida y natural si el diálogo lo permite):\n"
+            "- VOCABULARIO: Tipos de comunicación (types of communication), comunicación en general, y los sentidos (senses: sight, hearing, touch, etc.).\n"
+            "- GRAMÁTICA: Tiempos verbales en pasado, presente y futuro (Tense review), formas de preguntas (Question forms), y verbos de estado y dinámicos (State/Dynamic verbs like understand, feel, see vs talk, use).\n\n"
             
             "REGLAS ESTRICTAS DE RESPUESTA:\n"
             "1. Si el diálogo es en inglés, responde estrictamente en un inglés natural, correcto y adaptado a un nivel B1 inicial "
-            "(oraciones claras, fluidas y sin estructuras exageradamente complejas).\n"
-            "2. Si la conversación es en español, responde en español de forma directa, sin preámbulos, resúmenes ni recapitulaciones.\n"
-            "3. Si el contexto del diálogo menciona gramática o vocabulario específico (como 'white lies', 'conditionals' o 'reported speech'), "
-            "prioriza el uso natural de esos elementos en la respuesta sugerida.\n"
-            "4. Sé extremadamente breve (máximo 2 o 3 oraciones cortas) para mantener el ritmo dinámico y scannable del diálogo.\n\n"
+            "(oraciones claras, fluidas y con vocabulario directo).\n"
+            "2. Si la conversación es en español, responde en español de forma directa.\n"
+            "3. Sé extremadamente breve (máximo 2 oraciones cortas) para que el usuario pueda leer y responder en tiempo real.\n"
+            "4. Entrega la sugerencia de respuesta directamente para que yo (You) la diga, sin preámbulos ni explicaciones.\n\n"
             
             f"HISTORIAL ACTUAL DE LA CONVERSACIÓN:\n{transcript_text}"
         )
